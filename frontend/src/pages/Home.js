@@ -19,7 +19,7 @@ const Home = () => {
             }
         }
         fetchWorkouts()
-    }, []) // fire only once when component renders
+    }, [dispatch]) // fire only once when component renders
     
     return (
         <div className="home">   
