@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
 
 // components
 import WorkoutDetails from '../components/WorkoutDetails' 
 import WorkoutForm from '../components/WorkoutForm'
 
 const Home = () => {
-    const [workouts, setWorkouts] = useState(null)
-    
+    const {workouts, dispatch} = useWorkoutsContext()
     useEffect(() => {
         const fetchWorkouts = async () => {
             const response = await fetch('/api/workouts')
@@ -14,8 +14,8 @@ const Home = () => {
             const json = await response.json()
 
             if ( response.ok ) {
-                // update local states
-                setWorkouts(json)
+                // update global context instead of local states
+                dispatch({type: 'SET_WORKOUTS', payload: json})
             }
         }
         fetchWorkouts()
